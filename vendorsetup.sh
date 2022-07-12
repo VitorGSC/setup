@@ -1,7 +1,15 @@
 #!/bin/bash
 
-# fix source for old moto devices
+#HALs
+echo "cloning HALs"
+cd hardware/qcom-caf/msm8996 && rm -rf display &&  rm -rf audio && rm -rf media && cd ../../..  
+git clone https://github.com/AospExtended/platform_hardware_qcom_audio -b 12.x-caf-msm8996 hardware/qcom-caf/msm8996/audio &&  
+git clone https://github.com/AospExtended/platform_hardware_qcom_display -b 12.x-caf-msm8996 hardware/qcom-caf/msm8996/display &&  
+git clone https://github.com/AospExtended/platform_hardware_qcom_media -b 12.x-caf-msm8996 hardware/qcom-caf/msm8996/media
+echo ""
 
+# fix source for old moto devices
+echo "cloning hacksource"
 cd frameworks/native
 git fetch https://github.com/phhusson/platform_frameworks_native android-12.0.0_r16-phh
 git cherry-pick 11160ca79ca44375af895f70af14bb2af909aa77
@@ -19,10 +27,4 @@ cd external/selinux
 git fetch https://github.com/phhusson/platform_external_selinux android-12.0.0_r16-phh android-12.0.0_r26-phh android-12.0.0_r28-phh
 git cherry-pick 010b772593639c9fdb4392ac976d5f3da4ea5e57
 cd ../..
-
-# hals
-
-cd hardware/qcom-caf/msm8996 && rm -rf display &&  rm -rf audio && rm -rf media && cd ../../..  
-git clone https://github.com/AospExtended/platform_hardware_qcom_audio -b 12.x-caf-msm8996 hardware/qcom-caf/msm8996/audio &&  
-git clone https://github.com/AospExtended/platform_hardware_qcom_display -b 12.x-caf-msm8996 hardware/qcom-caf/msm8996/display &&  
-git clone https://github.com/AospExtended/platform_hardware_qcom_media -b 12.x-caf-msm8996 hardware/qcom-caf/msm8996/media
+echo ""
